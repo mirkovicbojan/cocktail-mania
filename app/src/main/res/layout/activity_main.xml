@@ -33,7 +33,7 @@
         android:gravity="center"
         android:inputType="textPersonName"
         android:text="CocktailMania"
-        android:textColor="@color/purple_700"
+        android:textColor="#5dabf4"
         android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
