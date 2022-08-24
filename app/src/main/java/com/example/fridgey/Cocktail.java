@@ -7,6 +7,7 @@ public class Cocktail {
     public String name;
     public List<String> ingredients;
     public String imgurl;
+    public String instructions;
 
     public Cocktail() {
     }
@@ -41,5 +42,13 @@ public class Cocktail {
 
     public void setImgurl(String imgurl) {
         this.imgurl = imgurl;
+    }
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
     }
 }

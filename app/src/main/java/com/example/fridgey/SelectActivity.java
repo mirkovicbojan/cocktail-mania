@@ -1,10 +1,14 @@
 package com.example.fridgey;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -26,22 +30,27 @@ import java.util.Map;
 
 public class SelectActivity extends AppCompatActivity {
 
-    public static Drawable LoadImageFromWebOperations(String url) {
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
-        } catch (Exception e) {
-            return null;
-        }
+    public void proceedToOption(String option)
+    {
+        Intent intent = new Intent(getApplicationContext(), CocktailDetailsActivity.class);
+        intent.putExtra("picked_option", option);
+        startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select);
-        //ImageView thumbnail = findViewById(R.id.cocktailThumb);
 
+        CardView randomSearch = findViewById(R.id.randomSearch);
+        randomSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView optionText = findViewById(R.id.random_pick);
+                proceedToOption(optionText.getText().toString());
+
+            }
+        });
 
     }
 }
