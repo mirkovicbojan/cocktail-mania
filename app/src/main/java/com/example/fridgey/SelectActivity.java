@@ -19,12 +19,13 @@ public class SelectActivity extends AppCompatActivity {
             intent.putExtra("picked_option", option);
             startActivity(intent);
         }
-        if(option.equals("byName"))
+        if(option.equals("byName") && option.equals("byIngredient"))
         {
             Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
             intent.putExtra("picked_option", option);
             startActivity(intent);
         }
+
     }
 
     @Override

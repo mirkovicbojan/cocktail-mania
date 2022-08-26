@@ -16,6 +16,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.fridgey.APIControlls.APICallback;
+import com.example.fridgey.APIControlls.APIController;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,6 +31,10 @@ import java.util.Map;
 
 public class CocktailDetailsActivity extends AppCompatActivity {
 
+    private RequestQueue mQueue;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,73 +42,22 @@ public class CocktailDetailsActivity extends AppCompatActivity {
         ImageView thumbnail = findViewById(R.id.photo);
         TextView name = findViewById(R.id.name);
         TextView description = findViewById(R.id.description);
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String URL = "https://thecocktaildb.com/api/json/v1/1/random.php";
-        Cocktail random_cocktail = new Cocktail();
-        JsonObjectRequest arrayRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                URL,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+        Cocktail displayCocktail = new Cocktail();
 
-                        JSONArray drinks = null;
-                        try {
-                            drinks = response.getJSONArray("drinks");
-                            JSONObject drink = drinks.getJSONObject(0);
-                            random_cocktail.setName(drink.getString("strDrink"));
-                            random_cocktail.setImgurl(drink.getString("strDrinkThumb"));
-                            List<String> ingredients = new ArrayList<String>();
-                            description.setText("Ingredients: ");
-                            for(int i=1;i<15;i++)
-                            {
-                                String ingredient = drink.getString("strIngredient"+i);
-                                if(ingredient != "null")
-                                {
-                                    ingredients.add(ingredient);
-                                    description.append("\n " + ingredient);
-                                }
+        mQueue = Volley.newRequestQueue(this);
 
-                            }
-                            if(drink.getString("strInstructions") == "")
-                            {
-                                description.append("\n INSTRUCTIONS UNAVAILABLE.");
-                            }
-                            else
-                            {
-                                description.append("\n Instructions: \n"+drink.getString("strInstructions"));
-                            }
-                            name.setText(random_cocktail.getName());
-                            Glide.with(getApplicationContext()).load(random_cocktail.imgurl).into(thumbnail);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-
-
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
-                        Log.d("ERROR","error => "+error.toString());
-                    }
-                }
-        ) {
+        mQueue.add(APIController.getRandomCocktail(new APICallback() {
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json");
-                headers.put("api-key", "1");
-                return headers;
+            public void onSuccess(JSONObject result)
+            {
 
             }
-        };
-        queue.add(arrayRequest);
 
+            @Override
+            public void onError(String result) {
+                System.out.println(result);
+            }
+        }));
 
     }
 }
