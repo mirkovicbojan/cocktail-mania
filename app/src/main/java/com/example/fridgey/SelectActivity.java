@@ -16,13 +16,13 @@ public class SelectActivity extends AppCompatActivity {
         if(option.equals("random"))
         {
             Intent intent = new Intent(getApplicationContext(), CocktailDetailsActivity.class);
-            intent.putExtra("picked_option", option);
+            intent.putExtra("drink", option);
             startActivity(intent);
         }
-        if(option.equals("byName") && option.equals("byIngredient"))
+        if(option.equals("byName") || option.equals("byIngredient"))
         {
             Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-            intent.putExtra("picked_option", option);
+            intent.putExtra("option", option);
             startActivity(intent);
         }
 

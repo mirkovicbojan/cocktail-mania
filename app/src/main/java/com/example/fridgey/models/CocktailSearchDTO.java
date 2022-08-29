@@ -1,8 +1,10 @@
-package com.example.fridgey;
+package com.example.fridgey.models;
 
 public class CocktailSearchDTO {
+    public String id;
     public String name;
     public String thumbnail;
+
 
     public CocktailSearchDTO() {
     }

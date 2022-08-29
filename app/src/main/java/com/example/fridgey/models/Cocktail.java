@@ -1,4 +1,4 @@
-package com.example.fridgey;
+package com.example.fridgey.models;
 
 import java.util.List;
 
