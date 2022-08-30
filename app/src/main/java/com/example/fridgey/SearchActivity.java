@@ -43,7 +43,7 @@ public class SearchActivity extends AppCompatActivity {
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 displayFragment fr = displayFragment.newInstance(searchInput.getText().toString(), option);
-                ft.add(R.id.display_view, fr, "Added");
+                ft.add(R.id.list_layout, fr, "Added");
                 ft.commit();
                 Log.d("Children", "onClick: "+display.getChildCount());
             }

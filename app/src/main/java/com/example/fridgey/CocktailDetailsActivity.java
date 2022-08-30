@@ -13,20 +13,15 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.example.fridgey.APIControlls.ImageLoader;
 import com.example.fridgey.APIControlls.MySingleton;
-import com.example.fridgey.APIControlls.Repository;
 import com.example.fridgey.models.Cocktail;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CocktailDetailsActivity extends AppCompatActivity {

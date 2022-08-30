@@ -4,7 +4,6 @@ package com.example.fridgey.fragments;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -13,21 +12,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
 import com.example.fridgey.APIControlls.Repository;
-import com.example.fridgey.APIControlls.ImageLoader;
 import com.example.fridgey.R;
 import com.example.fridgey.models.Cocktail;
 
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -84,10 +76,9 @@ public class displayFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_display, container, false);
-        LinearLayout layout = v.findViewById(R.id.display_view);
         if(option.equals("byName")){
             String url = "https://thecocktaildb.com/api/json/v1/1/search.php?s="+searchParam;
-            repo.getData(getActivity().getApplicationContext(), url).observe(getViewLifecycleOwner(), cocktails -> drawList(cocktails, layout));
+            repo.getData(getActivity().getApplicationContext(), url).observe(getViewLifecycleOwner(), cocktails -> drawList(cocktails, container));
 
         }
         return v;
@@ -95,14 +86,17 @@ public class displayFragment extends Fragment {
 
     public void drawList(List<Cocktail> data, ViewGroup container){
         container.removeAllViews();
+        /*LinearLayout list = new LinearLayout(getActivity().getApplicationContext());
+        list.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+        list.setOrientation(LinearLayout.VERTICAL);*/
         for(Cocktail cocktail : data){
             Log.d("Cocktail", "drawList: "+ cocktail.name);
-            LinearLayout list = new LinearLayout(getActivity().getApplicationContext());
-            list.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
-            list.setOrientation(LinearLayout.VERTICAL);
+
             ImageView img = new ImageView(getContext());
             Glide.with(getContext()).load(cocktail.getImgurl()).into(img);
             container.addView(img);
+
         }
+        //container.addView(list);
     }
 }
