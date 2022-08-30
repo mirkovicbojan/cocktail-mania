@@ -39,7 +39,7 @@ public class SearchActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                display.removeAllViews();
+                //display.removeAllViews();
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 displayFragment fr = displayFragment.newInstance(searchInput.getText().toString(), option);

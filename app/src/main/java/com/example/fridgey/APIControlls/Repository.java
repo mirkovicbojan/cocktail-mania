@@ -11,9 +11,11 @@ import androidx.lifecycle.ViewModel;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.fridgey.models.Cocktail;
 
 import org.json.JSONArray;
@@ -41,6 +43,7 @@ public class Repository extends ViewModel{
 
     public void fetchData(List<Cocktail> newData, Context context, String URL){
         List<Cocktail> list = new ArrayList<Cocktail>();
+        RequestQueue queue = Volley.newRequestQueue(context.getApplicationContext());
         if(newData == null) {
 
             JsonObjectRequest arrayRequest = new JsonObjectRequest(
@@ -95,7 +98,8 @@ public class Repository extends ViewModel{
 
                 }
             };
-            MySingleton.getInstance(context).addToRequestQueue(arrayRequest);
+            //MySingleton.getInstance(context).addToRequestQueue(arrayRequest);
+            queue.add(arrayRequest);
         }
         this.data.setValue(list);
         }

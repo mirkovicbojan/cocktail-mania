@@ -20,6 +20,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.fridgey.APIControlls.Repository;
 import com.example.fridgey.APIControlls.ImageLoader;
 import com.example.fridgey.R;
@@ -83,22 +84,25 @@ public class displayFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_display, container, false);
-        LinearLayout layout = v.findViewById(R.id.list_layout);
+        LinearLayout layout = v.findViewById(R.id.display_view);
         if(option.equals("byName")){
             String url = "https://thecocktaildb.com/api/json/v1/1/search.php?s="+searchParam;
-            repo.getData(getContext(), url).observe(getViewLifecycleOwner(), cocktails -> drawList(cocktails, layout));
+            repo.getData(getActivity().getApplicationContext(), url).observe(getViewLifecycleOwner(), cocktails -> drawList(cocktails, layout));
 
         }
         return v;
     }
 
     public void drawList(List<Cocktail> data, ViewGroup container){
-        //container.removeAllViews();
+        container.removeAllViews();
         for(Cocktail cocktail : data){
             Log.d("Cocktail", "drawList: "+ cocktail.name);
-            TextView text = new TextView(getContext());
-            text.setText(cocktail.getName());
-            container.addView(text);
+            LinearLayout list = new LinearLayout(getActivity().getApplicationContext());
+            list.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+            list.setOrientation(LinearLayout.VERTICAL);
+            ImageView img = new ImageView(getContext());
+            Glide.with(getContext()).load(cocktail.getImgurl()).into(img);
+            container.addView(img);
         }
     }
 }
