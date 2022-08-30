@@ -43,7 +43,7 @@ public class Repository extends ViewModel{
 
     public void fetchData(List<Cocktail> newData, Context context, String URL){
         List<Cocktail> list = new ArrayList<Cocktail>();
-        RequestQueue queue = Volley.newRequestQueue(context.getApplicationContext());
+        //RequestQueue queue = Volley.newRequestQueue(context.getApplicationContext());
         if(newData == null) {
 
             JsonObjectRequest arrayRequest = new JsonObjectRequest(
@@ -98,8 +98,8 @@ public class Repository extends ViewModel{
 
                 }
             };
-            //MySingleton.getInstance(context).addToRequestQueue(arrayRequest);
-            queue.add(arrayRequest);
+            MySingleton.getInstance(context).addToRequestQueue(arrayRequest);
+            //queue.add(arrayRequest);
         }
         this.data.setValue(list);
         }

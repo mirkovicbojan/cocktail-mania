@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
@@ -78,7 +79,7 @@ public class displayFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_display, container, false);
         if(option.equals("byName")){
             String url = "https://thecocktaildb.com/api/json/v1/1/search.php?s="+searchParam;
-            repo.getData(getActivity().getApplicationContext(), url).observe(getViewLifecycleOwner(), cocktails -> drawList(cocktails, container));
+            repo.getData(getActivity().getApplicationContext(), url).observe(getViewLifecycleOwner(), cocktails -> drawList(cocktails, (ViewGroup) v));
 
         }
         return v;
@@ -92,9 +93,12 @@ public class displayFragment extends Fragment {
         for(Cocktail cocktail : data){
             Log.d("Cocktail", "drawList: "+ cocktail.name);
 
-            ImageView img = new ImageView(getContext());
-            Glide.with(getContext()).load(cocktail.getImgurl()).into(img);
-            container.addView(img);
+            /*ImageView img = new ImageView(getContext());
+
+            Glide.with(getContext()).load(cocktail.getImgurl()).into(img);*/
+            TextView text = new TextView(getActivity().getApplicationContext());
+            text.setText(cocktail.getName());
+            container.addView(text);
 
         }
         //container.addView(list);
