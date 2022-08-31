@@ -59,17 +59,12 @@ public class Repository extends ViewModel{
                                     JSONObject drink = drinks.getJSONObject(i);
                                     Log.d("Entered request", "onResponse: " + drink);
                                     Cocktail c = new Cocktail();
-                                    c.setId(Integer.parseInt(drink.getString("idDrink")));
+                                    c.setId(drink.getString("idDrink"));
                                     c.setName(drink.getString("strDrink"));
                                     c.setImgurl(drink.getString("strDrinkThumb"));
                                     c.setInstructions(drink.getString("strInstructions"));
-                                    List<String> ingredients = new ArrayList<>();
-                                    for(int j = 1; j< 15; j++){
-                                        if(!drink.getString("strIngredient"+j).equals("null")){
-                                            ingredients.add(drink.getString("strIngredient"+j));
-                                        }
-                                    }
-                                    c.setIngredients(ingredients);
+
+
                                     list.add(c);
 
                                 }

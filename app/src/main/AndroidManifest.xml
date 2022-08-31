@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Fridgey"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".MyFavoritesActivity"
+            android:exported="true" />
+        <activity
             android:name=".SearchActivity"
             android:exported="true" />
         <activity

@@ -40,7 +40,7 @@
                 app:layout_constraintTop_toBottomOf="@id/photo" />
 
             <Button
-                android:id="@+id/availability"
+                android:id="@+id/addToFavorites"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -58,7 +58,7 @@
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/availability" />
+                app:layout_constraintTop_toBottomOf="@+id/addToFavorites" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -22,12 +22,12 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void LoadIn(){
-        ImageView sargarepa = findViewById(R.id.logo_img);
+        ImageView koktel = findViewById(R.id.logo_img);
         TextView title = findViewById(R.id.title_fridgey);
         Animation fadeIn = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotation);
 
 
-        sargarepa.startAnimation(fadeIn);
+        koktel.startAnimation(fadeIn);
         title.startAnimation(fadeIn);
 
         fadeIn.setAnimationListener(new Animation.AnimationListener() {

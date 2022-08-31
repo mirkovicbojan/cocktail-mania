@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.bumptech.glide.Glide;
 import com.example.fridgey.APIControlls.MySingleton;
+import com.example.fridgey.databaselayer.DBRepository;
 import com.example.fridgey.models.Cocktail;
 
 import org.json.JSONArray;
@@ -26,19 +29,29 @@ import java.util.Map;
 
 public class CocktailDetailsActivity extends AppCompatActivity {
 
-    private RequestQueue mQueue;
+    private DBRepository dbRepo;
 
+    private void addToFavorites(Cocktail cocktail){
 
+        dbRepo.insert(cocktail);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cocktail_details);
         ImageView thumbnail = findViewById(R.id.photo);
+        Cocktail displayCocktail = new Cocktail();
         TextView name = findViewById(R.id.name);
         TextView description = findViewById(R.id.description);
-        Cocktail displayCocktail = new Cocktail();
 
+        Button btn_add = findViewById(R.id.addToFavorites);
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addToFavorites(displayCocktail);
+            }
+        });
         String drinkID = getIntent().getExtras().getString("drink");
 
         if(drinkID.equals("random")){
@@ -56,6 +69,9 @@ public class CocktailDetailsActivity extends AppCompatActivity {
 
                                 JSONObject currentDrink = drinks.getJSONObject(0);
                                 name.setText(currentDrink.getString("strDrink"));
+                                displayCocktail.setName(currentDrink.getString("strDrink"));
+                                displayCocktail.setImgurl(currentDrink.getString("strDrinkThumb"));
+
                                 Glide.with(getApplicationContext()).load(currentDrink.getString("strDrinkThumb")).into(thumbnail);
                                 String ingredientsAndInstructions = "Ingredients: \n";
                                 for(int i = 1; i<15; i++){
@@ -66,6 +82,7 @@ public class CocktailDetailsActivity extends AppCompatActivity {
                                 }
                                 ingredientsAndInstructions += "Instructions: \n" + currentDrink.getString("strInstructions");
                                 description.setText(ingredientsAndInstructions);
+                                displayCocktail.setInstructions(description.getText().toString());
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

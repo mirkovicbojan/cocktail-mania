@@ -3,20 +3,27 @@ package com.example.fridgey.models;
 import java.util.List;
 
 public class Cocktail {
-    public int id;
+    public String id;
     public String name;
-    public List<String> ingredients;
+    //public List<String> ingredients;
     public String imgurl;
     public String instructions;
 
     public Cocktail() {
     }
 
-    public int getId() {
+    public Cocktail(String id, String name, String instructions, String imgurl) {
+        this.id = id;
+        this.name = name;
+        this.imgurl = imgurl;
+        this.instructions = instructions;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -28,13 +35,13 @@ public class Cocktail {
         this.name = name;
     }
 
-    public List<String> getIngredients() {
+    /*public List<String> getIngredients() {
         return ingredients;
     }
 
     public void setIngredients(List<String> ingredients) {
         this.ingredients = ingredients;
-    }
+    }*/
 
     public String getImgurl() {
         return imgurl;

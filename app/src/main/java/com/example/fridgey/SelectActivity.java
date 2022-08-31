@@ -11,6 +11,8 @@ import android.os.Bundle;
 
 public class SelectActivity extends AppCompatActivity {
 
+
+
     public void proceedToOption(String option)
     {
         if(option.equals("random"))
@@ -22,6 +24,11 @@ public class SelectActivity extends AppCompatActivity {
         if(option.equals("byName") || option.equals("byIngredient"))
         {
             Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+            intent.putExtra("option", option);
+            startActivity(intent);
+        }
+        if(option.equals("favorites")){
+            Intent intent = new Intent(getApplicationContext(), MyFavoritesActivity.class);
             intent.putExtra("option", option);
             startActivity(intent);
         }
@@ -38,5 +45,8 @@ public class SelectActivity extends AppCompatActivity {
 
         CardView searchByName = findViewById(R.id.searchByName);
         searchByName.setOnClickListener(view -> proceedToOption("byName"));
+
+        CardView MyFavorites = findViewById(R.id.myCollection);
+        MyFavorites.setOnClickListener(view -> proceedToOption("favorites"));
     }
 }
